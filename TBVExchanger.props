@@ -9,6 +9,8 @@
     <QTDIR Condition="'$(Platform)' == 'Win32'">C:\Qt\5.1.0\win32</QTDIR>
     <QTDIR Condition="'$(Platform)' == 'x64'">C:\Qt\5.1.0\x64</QTDIR>
     <BRAINSTIM_HOME>E:\Projects\BrainStim</BRAINSTIM_HOME>
+    <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3b$(PATH)</LocalDebuggerEnvironment>
+    <LocalDebuggerCommand>$(BRAINSTIM_HOME)\Install\BrainStim_$(Platform)_$(Configuration).exe</LocalDebuggerCommand>
   </PropertyGroup>
   <Choose>
     <When Condition="$([System.Convert]::ToBoolean($(IsDebug)))">
