@@ -26,8 +26,8 @@
 #include <Qlibrary>
 
 #include "plugininterface.h"
-#include "TBVExchanger_dialog.h"
-#include "TBVExchanger.h"
+#include "tbvexchanger_dialog.h"
+#include "tbvexchanger.h"
 #include "defines.h"
 
 QT_BEGIN_NAMESPACE
@@ -36,7 +36,7 @@ QT_END_NAMESPACE
 class TBVExchangerPlugin : public QObject, ExtensionInterface
 {
     Q_OBJECT
-	Q_PLUGIN_METADATA(IID "BrainStim.Plugins.Extensions" "TBVExchanger.json")
+	Q_PLUGIN_METADATA(IID "BrainStim.Plugins.Extensions" "tbvexchanger.json")
     Q_INTERFACES(ExtensionInterface)
 
 public:

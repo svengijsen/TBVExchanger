@@ -17,8 +17,8 @@
 //
 
 
-#include "TBVExchangerplugin.h"
-#include "TBVExchanger.h"
+#include "tbvexchangerplugin.h"
+#include "tbvexchanger.h"
 #include "defines.h"
 
 Q_DECLARE_METATYPE(TBVExchanger*)

@@ -64,26 +64,26 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="TBVExchanger.props" />
+    <Import Project="tbvexchanger.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="TBVExchanger.props" />
+    <Import Project="tbvexchanger.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Template|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="TBVExchanger.props" />
+    <Import Project="tbvexchanger.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="TBVExchanger.props" />
+    <Import Project="tbvexchanger.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="TBVExchanger.props" />
+    <Import Project="tbvexchanger.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
-    <Import Project="TBVExchanger.props" />
+    <Import Project="tbvexchanger.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
@@ -588,10 +588,10 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="TBVExchanger.cpp" />
-    <ClCompile Include="TBVExchanger_dialog.cpp" />
-    <ClCompile Include="TBVExchangerplugin.cpp" />
-    <ClCompile Include="StdAfx.cpp" />
+    <ClCompile Include="tbvexchanger.cpp" />
+    <ClCompile Include="tbvexchanger_dialog.cpp" />
+    <ClCompile Include="tbvexchangerplugin.cpp" />
+    <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="tbvnetworkinterface.cpp" />
     <ClCompile Include="tbv_server_request.cpp" />
   </ItemGroup>
@@ -624,18 +624,18 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Template|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="tbv_server_request.h" />
-    <CustomBuild Include="TBVExchanger.h">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing TBVExchanger.h...</Message>
+    <CustomBuild Include="tbvexchanger.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing tbvexchanger.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"  -DDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT_ -DQT_DLL -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DQT_SCRIPT_LIB -DQT_SCRIPTTOOLS_LIB -D_WINDLL  "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing TBVExchanger.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing tbvexchanger.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"  -DDEBUG -D_WINDOWS -DUNICODE -DWIN64 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DQT_SCRIPT_LIB -DQT_SCRIPTTOOLS_LIB -D_WINDLL  "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing TBVExchanger.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing tbvexchanger.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -D_WINDLL  "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\release" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing TBVExchanger.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing tbvexchanger.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN64 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -D_WINDLL  "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\release" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">Moc%27ing TBVExchanger.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">Moc%27ing tbvexchanger.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp</Outputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Template|x64'">Moc%27ing TBVExchanger.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Template|x64'">Moc%27ing tbvexchanger.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Template|x64'">.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"   "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Template|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"   "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
@@ -650,18 +650,18 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Template|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
-    <CustomBuild Include="TBVExchanger_dialog.h">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing TBVExchanger_dialog.h...</Message>
+    <CustomBuild Include="tbvexchanger_dialog.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing tbvexchanger_dialog.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"  -DDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT_ -DQT_DLL -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DQT_SCRIPT_LIB -DQT_SCRIPTTOOLS_LIB -D_WINDLL  "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing TBVExchanger_dialog.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing tbvexchanger_dialog.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"  -DDEBUG -D_WINDOWS -DUNICODE -DWIN64 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DQT_SCRIPT_LIB -DQT_SCRIPTTOOLS_LIB -D_WINDLL  "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing TBVExchanger_dialog.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing tbvexchanger_dialog.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -D_WINDLL  "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\release" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing TBVExchanger_dialog.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing tbvexchanger_dialog.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN64 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -D_WINDLL  "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\release" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">Moc%27ing TBVExchanger_dialog.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">Moc%27ing tbvexchanger_dialog.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp</Outputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Template|x64'">Moc%27ing TBVExchanger_dialog.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Template|x64'">Moc%27ing tbvexchanger_dialog.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Template|x64'">.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"   "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Template|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"   "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
@@ -676,18 +676,18 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Template|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
-    <CustomBuild Include="TBVExchangerplugin.h">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing TBVExchangerplugin.h...</Message>
+    <CustomBuild Include="tbvexchangerplugin.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing tbvexchangerplugin.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"  -DDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT_ -DQT_DLL -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DQT_SCRIPT_LIB -DQT_SCRIPTTOOLS_LIB -D_WINDLL  "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing TBVExchangerplugin.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing tbvexchangerplugin.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"  -DDEBUG -D_WINDOWS -DUNICODE -DWIN64 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DQT_SCRIPT_LIB -DQT_SCRIPTTOOLS_LIB -D_WINDLL  "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing TBVExchangerplugin.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing tbvexchangerplugin.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -D_WINDLL  "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\release" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing TBVExchangerplugin.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing tbvexchangerplugin.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN64 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -D_WINDLL  "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\release" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">Moc%27ing TBVExchangerplugin.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">Moc%27ing tbvexchangerplugin.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp</Outputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Template|x64'">Moc%27ing TBVExchangerplugin.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Template|x64'">Moc%27ing tbvexchangerplugin.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Template|x64'">.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"   "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Template|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc\moc_%(Filename).cpp"   "-I$(BRAINSTIM_HOME)\Source\BrainStim" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtScriptTools" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I." "-I$(SolutionDir)\BrainStim" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\Moc" "-I.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles"</Command>
@@ -705,10 +705,10 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
     <ClInclude Include="..\..\BrainStim\plugininterface.h" />
     <ClInclude Include="defines.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="TBVExchanger_dialog.ui">
+    <CustomBuild Include="tbvexchanger_dialog.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
@@ -736,11 +736,11 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="TBVExchangerplugin.rc" />
+    <ResourceCompile Include="tbvexchangerplugin.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="licenseHeader.licenseheader" />
-    <None Include="TBVExchanger.json" />
+    <None Include="licenseheader.licenseheader" />
+    <None Include="tbvexchanger.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

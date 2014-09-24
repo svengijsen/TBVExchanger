@@ -17,7 +17,7 @@
 //
 
 
-#include "TCPNetworkServer.h"
+#include "tcpnetworkserver.h"
 #include <QNetworkInterface>
 
 QScriptValue TCPNetworkServer::ctor__extensionname(QScriptContext* context, QScriptEngine* engine)

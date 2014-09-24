@@ -55,16 +55,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TBVExchanger.cpp">
+    <ClCompile Include="tbvexchanger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TBVExchanger_dialog.cpp">
+    <ClCompile Include="tbvexchanger_dialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TBVExchangerplugin.cpp">
+    <ClCompile Include="tbvexchangerplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StdAfx.cpp">
+    <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tbv_server_request.cpp">
@@ -147,7 +147,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="StdAfx.h">
+    <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -167,16 +167,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="TBVExchanger.h">
+    <CustomBuild Include="tbvexchanger.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="TBVExchanger_dialog.h">
+    <CustomBuild Include="tbvexchanger_dialog.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="TBVExchangerplugin.h">
+    <CustomBuild Include="tbvexchangerplugin.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="TBVExchanger_dialog.ui">
+    <CustomBuild Include="tbvexchanger_dialog.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="tbvnetworkinterface.h">
@@ -184,10 +184,10 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="TBVExchangerplugin.rc" />
+    <ResourceCompile Include="tbvexchangerplugin.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="licenseHeader.licenseheader" />
-    <None Include="TBVExchanger.json" />
+    <None Include="licenseheader.licenseheader" />
+    <None Include="tbvexchanger.json" />
   </ItemGroup>
 </Project>

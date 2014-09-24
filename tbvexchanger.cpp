@@ -15,7 +15,7 @@
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "TBVExchanger.h"
+#include "tbvexchanger.h"
 
 QScriptValue TBVExchanger::ctor__extensionname(QScriptContext* context, QScriptEngine* engine)
 {

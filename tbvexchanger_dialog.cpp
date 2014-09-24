@@ -17,7 +17,7 @@
 //
 
 
-#include "TBVExchanger_dialog.h"
+#include "tbvexchanger_dialog.h"
 
 TBVExchanger_Dialog::TBVExchanger_Dialog(QWidget *parent)	: QDialog(parent)
 {
