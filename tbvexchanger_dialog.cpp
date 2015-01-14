@@ -1,5 +1,5 @@
 //TBVExchanger
-//Copyright (C) 2014  Sven Gijsen
+//Copyright (C) 2015  Sven Gijsen
 //
 //This file is part of BrainStim.
 //BrainStim is free software: you can redistribute it and/or modify
@@ -23,7 +23,6 @@ TBVExchanger_Dialog::TBVExchanger_Dialog(QWidget *parent)	: QDialog(parent)
 {
 	//Gets constructed only once during the load of the plugin
 	ui.setupUi(this);
-	connect(ui.btnExampleButton, SIGNAL(clicked()), this, SLOT(exampleButton_Pressed()));
 }
 
 TBVExchanger_Dialog::~TBVExchanger_Dialog()

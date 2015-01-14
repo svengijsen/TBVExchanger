@@ -145,6 +145,9 @@
     <ClCompile Include="..\Build_MSVC\Qt\x64\Template\Moc\moc_TBVExchanger.cpp">
       <Filter>Generated Files\Template_x64</Filter>
     </ClCompile>
+    <ClCompile Include="..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\qrc_rsc.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -182,6 +185,9 @@
     <CustomBuild Include="tbvnetworkinterface.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="rsc.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="tbvexchangerplugin.rc" />
@@ -189,5 +195,34 @@
   <ItemGroup>
     <None Include="licenseheader.licenseheader" />
     <None Include="tbvexchanger.json" />
+    <None Include="html\NetworkPlugin_guide.htm">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="html\NetworkPlugin_guide_files\image001.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="html\NetworkPlugin_guide_files\image002.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="html\NetworkPlugin_guide_files\image003.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="html\NetworkPlugin_guide_files\image004.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="html\NetworkPlugin_guide_files\image005.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="html\NetworkPlugin_guide_files\image006.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="html\NetworkPlugin_guide_files\image007.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="html\NetworkPlugin_guide_files\image008.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

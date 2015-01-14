@@ -1,4 +1,4 @@
-//Copyright (C) 2014  Michael Luehrs, Brain Innovation B.V. and Sven Gijsen
+//Copyright (C) 2015  Michael Luehrs, Brain Innovation B.V. and Sven Gijsen
 //
 //This file is part of BrainStim.
 //BrainStim is free software: you can redistribute it and/or modify
@@ -162,6 +162,11 @@ public slots:
 	  Returns the mean signal value of the ROI referenced with the "roi" parameter (0-based index). A valid number must be smaller than the value returned by the "tGetNrOfROIs" query. Note that the voxels defining a ROI might change in case that the user selects another region for the same ROI index (replaces the content of the same plot in the GUI). The query should be used in situations when ROIs are not changed, i.e. when a set of ROIs is pre-loaded for a neurofeedback study. For details, see the "ROI Processing" example client.
 	*/
 	float tGetMeanOfROI(int roi) {return tbvNetwIntFace->tGetMeanOfROI(roi);};
+	//!  tGetExistingMeansOfROI slot. 
+	/*!
+	  Returns the mean signal value of the ROI referenced with the "roi" parameter (0-based index) for all points in time to the toTimePoint specific point in time. A valid number must be smaller than the value returned by the "tGetNrOfROIs" query. Note that the voxels defining a ROI might change in case that the user selects another region for the same ROI index (replaces the content of the same plot in the GUI). The query should be used in situations when ROIs are not changed, i.e. when a set of ROIs is pre-loaded for a neurofeedback study. For details, see the "ROI Processing" example client.
+	*/
+	QList<float> tGetExistingMeansOfROI(int roi, int toTimePoint){return tbvNetwIntFace->tGetExistingMeansOfROI(roi, toTimePoint);};
 	//!  tGetMeanOfROIAtTimePoint slot. 
 	/*!
 	  Returns the mean signal value of the ROI referenced with the "roi" parameter (0-based index) at a specific point in time. A valid number must be smaller than the value returned by the "tGetNrOfROIs" query. Note that the voxels defining a ROI might change in case that the user selects another region for the same ROI index (replaces the content of the same plot in the GUI). The query should be used in situations when ROIs are not changed, i.e. when a set of ROIs is pre-loaded for a neurofeedback study. For details, see the "ROI Processing" example client.
@@ -199,12 +204,12 @@ public slots:
 	/*!
 	  Provides the full time course data to a given time point that is also used internally in TBV. Individual values are 2-byte short integers. Note that the "timepoint" parameter must be smaller than the value returned by the "tGetCurrentTimePoint()" function. If a voxel with specific coordinates needs to be accessed, use the term "z_coord*dim_x*dim_y + y_coord*dim_x + x_coord". For details, see the provided example clients.
 	*/
-	QList<short> tGetTimeCourseData(int timepoint) {return tbvNetwIntFace->tGetTimeCourseData(timepoint);};
+	QList<short> tGetValueOfAllVoxelsAtTime(int timepoint) {return tbvNetwIntFace->tGetValueOfAllVoxelsAtTime(timepoint);};
 	//!  tGetRawTimeCourseData slot. 
 	/*!
 	  Provides the full raw (not processed) time course data to a given time point. Individual values are 2-byte short integers. Note that the "timepoint" parameter must be smaller than the value returned by the "tGetCurrentTimePoint()" function. If a voxel with specific coordinates needs to be accessed, use the term "z_coord*dim_x*dim_y + y_coord*dim_x + x_coord". For details, see the provided example clients.
 	*/
-	QList<short> tGetRawTimeCourseData(int timepoint) {return tbvNetwIntFace->tGetRawTimeCourseData(timepoint);};
+	QList<short> tGetRawValueOfAllVoxelsAtTime(int timepoint) {return tbvNetwIntFace->tGetRawValueOfAllVoxelsAtTime(timepoint);};
 	//!  tGetBetaOfVoxel slot. 
 	/*!
 	  Provides the value of a beta indexed by the "beta" parameter as an 8-byte double value for the voxel specified by the coordinate parameters "x", "y" and "z" (0-based indices). This function allows to access estimated beta values resulting from the incremental GLM performed by TBV. Note that the beta index ranges from 0 to the current number of predictors; to retrieve only the betas of the predictors of interest, the beta index must be smaller than "tGetCurrentNrOfPredictors" minus "tGetNrOfConfoundPredictors". For details, see the "Export Volume Data" example client.
@@ -239,13 +244,33 @@ public slots:
 	As with the tGetNumberOfClasses() function, this function returns value -3 in case that the real-time SVM classifier is not open and -2 in case that the real-time SVM classifier dialog is open but the classifier is not producing incremental output. The function returns value -1 if the SVM dialog is used but no output data is available for the current time point. Only access the provided output_array if the returned value of the function is a positive number. Use the tGetNumberOfClasses() function to retrieve the number of classes from which you can calculate the number of pairs (see above) to determine the necessary size of the array used to receive the pairwise classification values. Consult the SVM Plugin sample code for an example how to use the SVM access functions.  
 	*/
 	QList<float> tGetCurrentClassifierOutput() { return tbvNetwIntFace->tGetCurrentClassifierOutput();};
-
+	//Correlation Functions
+	//!  tGetPearsonCorrelation slot. 
+	/*!
+	Provides the calculated Pearson Correlation results of the current point in time for all combinations of selected ROI’s. At least two ROI’s must be selected to calculate a correlation. 
+	*/
+	QList<double> tGetPearsonCorrelation(int windowSize) { return tbvNetwIntFace->tGetPearsonCorrelation(windowSize);};
+	//!  tGetPearsonCorrelationAtTimePoint slot. 
+	/*!
+	Provides the calculated Pearson Correlation results of the point in time defined by the timePoint parameter for all combinations of selected ROI’s. At least two ROI’s must be selected to calculate a correlation. 
+	*/
+	QList<double> tGetPearsonCorrelationAtTimePoint(int windowSize, int timePoint) { return tbvNetwIntFace->tGetPearsonCorrelationAtTimePoint(windowSize,timePoint);};
+	//!  tGetPartialCorrelation slot. 
+	/*!
+	Provides the calculated partial correlation results of the current point in time for all combinations of selected ROI’s. At least two ROI’s must be selected to calculate a correlation. 
+	*/
+	QList<double> tGetPartialCorrelation(int windowSize) { return tbvNetwIntFace->tGetPartialCorrelation(windowSize);};
+	//!  tGetPartialCorrelationAtTimePoint slot. 
+	/*!
+	Provides the calculated partial correlation results of the point in time defined by the timePoint parameter for all combinations of selected ROI’s. At least two ROI’s must be selected to calculate a correlation.
+	*/
+	QList<double> tGetPartialCorrelationAtTimePoint(int windowSize, int timePoint) { return tbvNetwIntFace->tGetPartialCorrelationAtTimePoint(windowSize,timePoint);};
 	//Connection functions
 	//!  connectToServer slot. 
 	/*!
 	  Connect to the server using ip and port.
 	*/
-	bool connectToServer(QString sIPAddress,int port) {return tbvNetwIntFace->connectToServer(sIPAddress.toLatin1().data(),port);};
+	bool connectToServer(QString sIPAddress,int port) {return tbvNetwIntFace->connectToServer(sIPAddress.toLatin1().data(),(quint16)port);};
 	//!  disconnectFromServer slot. 
 	/*!
 	  Disconnect from the server.

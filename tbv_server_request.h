@@ -1,4 +1,4 @@
-//Copyright (C) 2014  Michael Luehrs, Brain Innovation B.V.
+//Copyright (C) 2015  Michael Luehrs, Brain Innovation B.V.
 //
 //This file is part of BrainStim.
 //BrainStim is free software: you can redistribute it and/or modify
@@ -32,7 +32,7 @@ public:
 	bool sendData(char *Querry,int value0 = -1, int value1 = -1, int value2 = -1, int value3 = -1);
 	QString getReply();
 	template< typename Turb> void getDataOfByteArray(Turb &value);
-	void getDataOfByteArray(char *data,int size);
+	template< class T> void getVectorDataOfByteArray(QVector<T> *data,int size);
 
 private:
 	QByteArray rcvData;
@@ -49,6 +49,16 @@ private:
 template< typename Turb> void TBV_Server_Request::getDataOfByteArray(Turb &value)
 {
     rcvStream >> value;
+}
+
+template< class T> void TBV_Server_Request::getVectorDataOfByteArray(QVector<T> *data,int size)
+{
+	T temp;
+	for (int i=0;i<size;i++)
+	{
+		rcvStream >> temp;
+		data->replace(i,temp);
+	}
 }
 
 

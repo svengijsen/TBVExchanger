@@ -1,4 +1,4 @@
-//Copyright (C) 2014  Michael Luehrs, Brain Innovation B.V.
+//Copyright (C) 2015  Michael Luehrs, Brain Innovation B.V.
 //
 //This file is part of BrainStim.
 //BrainStim is free software: you can redistribute it and/or modify
@@ -17,16 +17,20 @@
 
 #include "tbvnetworkinterface.h"
 
-TBVNetworkInterface::TBVNetworkInterface(bool autoConnect, bool autoReconnect)
-    : QThread()
+TBVNetworkInterface::TBVNetworkInterface(bool autoConnect, bool autoReconnect) : QThread()
 {
+
+	VMajor = 1;
+	VMinor = 6;
+	VSubminor = 0;
+
 	tcpSocket = new QTcpSocket();
 	tcpSocket->setSocketOption(QAbstractSocket::LowDelayOption, 1);
 	tcpSocket->setSocketOption(QAbstractSocket::KeepAliveOption, 1);
 
 	rTcpSocket = new QTcpSocket();
-	tcpSocket->setSocketOption(QAbstractSocket::LowDelayOption, 1);
-	tcpSocket->setSocketOption(QAbstractSocket::KeepAliveOption, 1);
+	rTcpSocket->setSocketOption(QAbstractSocket::LowDelayOption, 1);
+	rTcpSocket->setSocketOption(QAbstractSocket::KeepAliveOption, 1);
 
 	nDefaultPort = (quint16)55555;
 	blockSize = 0;
@@ -37,7 +41,6 @@ TBVNetworkInterface::TBVNetworkInterface(bool autoConnect, bool autoReconnect)
 	reConnect = autoReconnect;
 	udpSocket = NULL;
 
-	connect(rTcpSocket,SIGNAL(readyRead()),this,SLOT(readExecuteStep()));
 	connect(tcpSocket,SIGNAL(connected()),this,SLOT(connectionEstablished()));
 	connect(rTcpSocket,SIGNAL(disconnected()),this,SLOT(connectionLost()));
 	connect(tcpSocket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(writeError(QAbstractSocket::SocketError)));
@@ -90,7 +93,7 @@ void TBVNetworkInterface::processPendingDatagrams()
 		quint16 *tbvPort = new quint16();
 		udpSocket->readDatagram(datagram.data(),datagram.size(),tbvServer,tbvPort);
 
-		int port = tr(datagram.data()).remove("Turbo-BrainVoyager Broadcast: ").toInt();
+		quint16 port = tr(datagram.data()).remove("Turbo-BrainVoyager Broadcast: ").toInt();
 
 
 		if(tr(datagram.data()).contains(tr("Turbo-BrainVoyager Broadcast")))
@@ -129,9 +132,24 @@ void TBVNetworkInterface::connectionLost()
 
 void TBVNetworkInterface::tryToReconnect()
 {
+	if (udpSocket)
+		udpSocket->close();
+	if (tcpSocket)
+	{
+		tcpSocket->readAll();
+		tcpSocket->close();
+	}
+	if (rTcpSocket)
+	{
+		rTcpSocket->readAll();
+		rTcpSocket->close();
+	}
+
+	disconnect(rTcpSocket, SIGNAL(readyRead()), this, SLOT(readExecuteStep()));
+
 	QTime *timer = new QTime();
 	emit connecting();
-	while (!terminateReconnect && !connectToServer(ipAddressString.toUtf8().data(),iPort))
+	while (!terminateReconnect && !connectToServer(ipAddressString.toLatin1().data(), iPort))
 	{
 		timer->restart();
 		while(timer->elapsed()<2000)
@@ -141,7 +159,7 @@ void TBVNetworkInterface::tryToReconnect()
 		}
 	}
 }
-bool TBVNetworkInterface::connectToServer(char *ipAddress,qint64 port)
+bool TBVNetworkInterface::connectToServer(char *ipAddress,quint16 port)
 {
 	manualDisconnect = false;
 	ipAddressString = ipAddress;
@@ -149,9 +167,15 @@ bool TBVNetworkInterface::connectToServer(char *ipAddress,qint64 port)
 	tcpSocket->connectToHost(tr(ipAddress),port);
 	if(!tcpSocket->waitForConnected(2000))
 		return false;
-	sendStreamDefinition("Request Socket",tcpSocket);
 
-	msleep(500);
+	sendStreamDefinition("Request Socket",tcpSocket);
+	if(!checkConnection("Request Socket",tcpSocket))
+	{
+		tcpSocket->close();
+		return false;
+	}
+
+	msleep(100);
 	rTcpSocket->connectToHost(tr(ipAddress),port);
 	if(!rTcpSocket->waitForConnected(2000))
 	{
@@ -159,7 +183,14 @@ bool TBVNetworkInterface::connectToServer(char *ipAddress,qint64 port)
 		return false;
 	}
 	sendStreamDefinition("Execute Socket",rTcpSocket);
-	
+	if(!checkConnection("Execute Socket",rTcpSocket))
+	{
+		rTcpSocket->close();
+		tcpSocket->close();
+		return false;
+	}
+	connect(rTcpSocket,SIGNAL(readyRead()),this,SLOT(readExecuteStep()));
+
 	return true;
 }
 
@@ -168,8 +199,8 @@ bool TBVNetworkInterface::sendStreamDefinition(char *definition,QTcpSocket *dSoc
 {
 	QByteArray definit;
 	QDataStream out(&definit, QIODevice::WriteOnly);
-	out.setVersion(QDataStream::Qt_4_0);
-
+	out.setVersion(QDataStream::Qt_4_8);
+	out.setFloatingPointPrecision(QDataStream::SinglePrecision);
 	out << (qint64)0;
 	out << definition;	
 	out.device()->seek(0);
@@ -189,6 +220,55 @@ bool TBVNetworkInterface::sendStreamDefinition(char *definition,QTcpSocket *dSoc
 	
 	return true;
 
+}
+
+bool TBVNetworkInterface::checkConnection(QString socketName, QTcpSocket *dSocket)
+{
+	while(!terminateReciever)
+	{
+		QDataStream in(dSocket);
+		in.setVersion(QDataStream::Qt_4_8);
+		in.setFloatingPointPrecision(QDataStream::SinglePrecision);
+		dSocket->waitForReadyRead(1000);
+		//get size of data to receive
+		if (blockSize == 0) {
+			if (dSocket->bytesAvailable() < (int)sizeof(qint64))
+			{
+				return false;
+			}
+			in >> blockSize;
+		}
+		//ensure that enough data is on the stream
+		if ((qint64)dSocket->bytesAvailable() < blockSize)
+		{
+			return false;
+		}
+
+		blockSize = 0;
+
+		char *rcvSocketName;
+		in >> rcvSocketName;
+		int major, minor, subminor;
+		in >> major;
+		in >> minor;
+		in >> subminor;
+
+		if(!rcvSocketName)
+		{
+			while (!dSocket->atEnd()) 
+			{
+				QByteArray data = dSocket->read(100);
+			}
+		}
+
+
+		if(tr(rcvSocketName) == socketName && major == VMajor && minor >= VMinor)
+			return true;
+		else
+			return false;
+
+	}
+	return false;
 }
 
 bool TBVNetworkInterface::disconnectFromServer()
@@ -229,7 +309,8 @@ void TBVNetworkInterface::readExecuteStep()
 	while(!terminateReciever)
 	{
 		QDataStream in(rTcpSocket);
-		in.setVersion(QDataStream::Qt_4_0);
+		in.setVersion(QDataStream::Qt_4_8);
+		in.setFloatingPointPrecision(QDataStream::SinglePrecision);
 		//get size of data to receive
 		if (blockSize == 0) {
 			if (rTcpSocket->bytesAvailable() < (int)sizeof(qint64))
@@ -320,6 +401,8 @@ QList<int> TBVNetworkInterface::tGetDimsOfFunctionalData()
 	QList<int> dimsofFunctionalData;
 	if(!status.isEmpty())
 	{
+		dimsofFunctionalData.clear();
+		dimsofFunctionalData.append(0);
 		return dimsofFunctionalData;
 	}
 	doRequest.getDataOfByteArray(dim_x);
@@ -499,13 +582,13 @@ float TBVNetworkInterface::tGetMeanOfROI(int roi)
 	
 	if(!status.isEmpty())
 	{
-		return -1;
+		return 0;
 	}
 	float MeanOfROI;
 	doRequest.getDataOfByteArray(MeanOfROI);
 	return MeanOfROI;
 }
-float* TBVNetworkInterface::tGetExistingMeansOfROI(int roi, int toTimePoint)
+QList<float> TBVNetworkInterface::tGetExistingMeansOfROI(int roi, int toTimePoint)
 {	
 	TBV_Server_Request doRequest(tcpSocket,querryQueue,tr("tGetExistingMeansOfROI"));
 	doRequest.sendData("tGetExistingMeansOfROI",roi,toTimePoint);
@@ -513,13 +596,15 @@ float* TBVNetworkInterface::tGetExistingMeansOfROI(int roi, int toTimePoint)
 
 	if(!status.isEmpty())
 	{
-		return 0;
+		AllMeansOfROI.clear();
+		AllMeansOfROI.append(0);
+		return AllMeansOfROI.toList();
 	}
 
 	AllMeansOfROI.resize(toTimePoint);
-	doRequest.getDataOfByteArray((char *)AllMeansOfROI.data(),toTimePoint*sizeof(float));
-
-	return AllMeansOfROI.data();
+	doRequest.getVectorDataOfByteArray(&AllMeansOfROI,toTimePoint);
+	AllMeansOfROI.append(1);
+	return AllMeansOfROI.toList();
 
 }
 float TBVNetworkInterface::tGetMeanOfROIAtTimePoint(int roi,int timepoint)
@@ -530,7 +615,7 @@ float TBVNetworkInterface::tGetMeanOfROIAtTimePoint(int roi,int timepoint)
 
 	if(!status.isEmpty())
 	{
-		return -2;
+		return 0;
 	}
 	float MeanOfROI;
 	doRequest.getDataOfByteArray(MeanOfROI);
@@ -574,6 +659,7 @@ QList<int> TBVNetworkInterface::tGetCoordsOfVoxelOfROI(int roi, int voxel)
 	QList<int> coords;
 	if(!status.isEmpty())
 	{
+		coords.clear();
 		coords.append(0);
 		return coords;
 	}
@@ -597,6 +683,7 @@ QList<int> TBVNetworkInterface::tGetAllCoordsOfVoxelsOfROI(int roi)
 	
 	if(!status.isEmpty())
 	{
+		CoordsOfVoxelsOfROI.clear();
 		CoordsOfVoxelsOfROI.append(0);
 		return CoordsOfVoxelsOfROI.toList();
 	}
@@ -604,9 +691,8 @@ QList<int> TBVNetworkInterface::tGetAllCoordsOfVoxelsOfROI(int roi)
 	
 	CoordsOfVoxelsOfROI.resize(NrOfVoxelsOfROI*3);
 
-	doRequest.getDataOfByteArray((char *)CoordsOfVoxelsOfROI.data(),NrOfVoxelsOfROI*3*sizeof(int));
+	doRequest.getVectorDataOfByteArray(&CoordsOfVoxelsOfROI,NrOfVoxelsOfROI*3);
 	CoordsOfVoxelsOfROI.append(1);
-
 	return CoordsOfVoxelsOfROI.toList();
 }
 
@@ -626,46 +712,48 @@ float TBVNetworkInterface::tGetValueOfVoxelAtTime(int x, int y, int z, int timep
 	doRequest.getDataOfByteArray(ValueOfVoxelAtTime);
 	return ValueOfVoxelAtTime;
 }
-QList<short> TBVNetworkInterface::tGetTimeCourseData(int timepoint)
+QList<short> TBVNetworkInterface::tGetValueOfAllVoxelsAtTime(int timepoint)
 {
 	int dim_xyz;
 	QList<int> dimsOfFunctionalData = tGetDimsOfFunctionalData();
 
 	dim_xyz = dimsOfFunctionalData.at(0) * dimsOfFunctionalData.at(1) * dimsOfFunctionalData.at(2);
 		
-	TBV_Server_Request doRequest(tcpSocket,querryQueue,tr("tGetTimeCourseData"));
-	doRequest.sendData("tGetTimeCourseData", timepoint);
+	TBV_Server_Request doRequest(tcpSocket,querryQueue,tr("tGetValueOfAllVoxelsAtTime"));
+	doRequest.sendData("tGetValueOfAllVoxelsAtTime", timepoint);
 	QString status = doRequest.getReply();
 	
 	if(!status.isEmpty())
 	{
+		TimeCourseData.clear();
 		TimeCourseData.append(0);
 		return TimeCourseData.toList();
 	}
 	
 	TimeCourseData.resize(dim_xyz);
-	doRequest.getDataOfByteArray((char *)TimeCourseData.data(),dim_xyz*sizeof(short int));
+	doRequest.getVectorDataOfByteArray(&TimeCourseData,dim_xyz);
 	TimeCourseData.append(1);
 	return TimeCourseData.toList();
 }
-QList<short> TBVNetworkInterface::tGetRawTimeCourseData(int timepoint)
+QList<short> TBVNetworkInterface::tGetRawValueOfAllVoxelsAtTime(int timepoint)
 {
 	int dim_xyz;
 	QList<int> dimsOfFunctionalData = tGetDimsOfFunctionalData();
 
 	dim_xyz = dimsOfFunctionalData.at(0) * dimsOfFunctionalData.at(1) * dimsOfFunctionalData.at(2);
 
-	TBV_Server_Request doRequest(tcpSocket,querryQueue,tr("tGetRawTimeCourseData"));
-	doRequest.sendData("tGetRawTimeCourseData", timepoint);
+	TBV_Server_Request doRequest(tcpSocket,querryQueue,tr("tGetRawValueOfAllVoxelsAtTime"));
+	doRequest.sendData("tGetRawValueOfAllVoxelsAtTime", timepoint);
 	QString status = doRequest.getReply();
 	
 	if(!status.isEmpty())
 	{
+		RawTimeCourseData.clear();
 		RawTimeCourseData.append(0);
 		return RawTimeCourseData.toList();
 	}
 	RawTimeCourseData.resize(dim_xyz);
-	doRequest.getDataOfByteArray((char *)RawTimeCourseData.data(),dim_xyz*sizeof(short int));
+	doRequest.getVectorDataOfByteArray(&RawTimeCourseData,dim_xyz);
 	RawTimeCourseData.append(1);
 	return RawTimeCourseData.toList();
 }
@@ -697,11 +785,12 @@ QList<double> TBVNetworkInterface::tGetBetaMaps()
 	
 	if(!status.isEmpty())
 	{
+		BetaMaps.clear();
 		BetaMaps.append(0);
 		return BetaMaps.toList();
 	}
 	BetaMaps.resize(n_predictors_current*dim_xyz);
-	doRequest.getDataOfByteArray((char *)BetaMaps.data(), n_predictors_current*dim_xyz*8*sizeof(unsigned char));
+	doRequest.getVectorDataOfByteArray(&BetaMaps, n_predictors_current*dim_xyz);
 	BetaMaps.append(1);
 	return BetaMaps.toList();
 }
@@ -733,11 +822,12 @@ QList<float> TBVNetworkInterface::tGetContrastMaps()
 	
 	if(!status.isEmpty())
 	{
+		ContrastMaps.clear();
 		ContrastMaps.append(0);
 		return ContrastMaps.toList();
 	}
 	ContrastMaps.resize(n_contrast_maps*dim_xyz*sizeof(float));
-	doRequest.getDataOfByteArray((char *)ContrastMaps.data(), n_contrast_maps*dim_xyz*4*sizeof(unsigned char));
+	doRequest.getVectorDataOfByteArray(&ContrastMaps, n_contrast_maps*dim_xyz);
 	ContrastMaps.append(1);
 	return ContrastMaps.toList();
 }
@@ -765,6 +855,7 @@ QList<float> TBVNetworkInterface::tGetCurrentClassifierOutput()
 
 	if(!status.isEmpty())
 	{
+		ClassifierOutput.clear();
 		ClassifierOutput.append(0);
 		return ClassifierOutput.toList();
 	}	
@@ -773,11 +864,131 @@ QList<float> TBVNetworkInterface::tGetCurrentClassifierOutput()
 
 	int n_class_comparisons = n_classes * (n_classes - 1) / 2;
 	ClassifierOutput.resize(n_class_comparisons);
-	doRequest.getDataOfByteArray((char *)ClassifierOutput.data(), n_class_comparisons*sizeof(float));
+	doRequest.getVectorDataOfByteArray(&outputVector, n_class_comparisons);
 	ClassifierOutput.append(winner_class);
 	ClassifierOutput.append(1);
 	return ClassifierOutput.toList();
 }
+
+QList<double> TBVNetworkInterface::tGetPearsonCorrelation(int windowSize)
+{	
+	int n_rois = tGetNrOfROIs();
+	if(!(n_rois > 1))
+	{
+		outputVector.clear();
+		outputVector.append(0);
+		return outputVector.toList();
+	}
+	TBV_Server_Request doRequest(tcpSocket,querryQueue,tr("tGetPearsonCorrelation"));
+	doRequest.sendData("tGetPearsonCorrelation",windowSize);
+	QString status = doRequest.getReply();
+
+	if(!status.isEmpty())
+	{
+		outputVector.clear();
+		outputVector.append(0);
+		return outputVector.toList();
+	}	
+	int ncon=(n_rois*(n_rois-1))/2; // total number of correlations (edges)
+
+	outputVector.reserve(ncon);
+	outputVector.resize(ncon);
+
+	doRequest.getVectorDataOfByteArray(&outputVector, ncon);
+	outputVector.append(1);
+	return outputVector.toList();
+}
+
+QList<double> TBVNetworkInterface::tGetPearsonCorrelationAtTimePoint(int windowSize, int timePoint)
+{	
+	int n_rois = tGetNrOfROIs();
+	if(!(n_rois > 1))
+	{
+		outputVector.clear();
+		outputVector.append(0);
+		return outputVector.toList();
+	}
+
+	TBV_Server_Request doRequest(tcpSocket,querryQueue,tr("tGetPearsonCorrelationAtTimePoint"));
+	doRequest.sendData("tGetPearsonCorrelationAtTimePoint",windowSize, timePoint);
+	QString status = doRequest.getReply();
+
+	if(!status.isEmpty())
+	{
+		outputVector.clear();
+		outputVector.append(0);
+		return outputVector.toList();
+	}	
+	int ncon=(n_rois*(n_rois-1))/2; // total number of correlations (edges)
+
+	outputVector.reserve(ncon);
+	outputVector.resize(ncon);
+
+	doRequest.getVectorDataOfByteArray(&outputVector, ncon);
+	outputVector.append(1);
+	return outputVector.toList();
+}
+
+QList<double> TBVNetworkInterface::tGetPartialCorrelation(int windowSize)
+{	
+	int n_rois = tGetNrOfROIs();
+	if(!(n_rois > 1))
+	{
+		outputVector.clear();
+		outputVector.append(0);
+		return outputVector.toList();
+	}
+	TBV_Server_Request doRequest(tcpSocket,querryQueue,tr("tGetPartialCorrelation"));
+	doRequest.sendData("tGetPartialCorrelation",windowSize);
+	QString status = doRequest.getReply();
+
+	if(!status.isEmpty())
+	{
+		outputVector.clear();
+		outputVector.append(0);
+		return outputVector.toList();
+	}	
+	int ncon=(n_rois*(n_rois-1))/2; // total number of correlations (edges)
+
+	outputVector.reserve(ncon);
+	outputVector.resize(ncon);
+
+	doRequest.getVectorDataOfByteArray(&outputVector, ncon);
+	outputVector.append(1);
+	return outputVector.toList();
+}
+
+QList<double> TBVNetworkInterface::tGetPartialCorrelationAtTimePoint(int windowSize, int timePoint)
+{	
+	int n_rois = tGetNrOfROIs();
+	if(!(n_rois > 1))
+	{
+		outputVector.clear();
+		outputVector.append(0);
+		return outputVector.toList();
+	}
+
+	TBV_Server_Request doRequest(tcpSocket,querryQueue,tr("tGetPartialCorrelationAtTimePoint"));
+	doRequest.sendData("tGetPartialCorrelationAtTimePoint",windowSize, timePoint);
+	QString status = doRequest.getReply();
+
+	if(!status.isEmpty())
+	{
+		outputVector.clear();
+		outputVector.append(0);
+		return outputVector.toList();
+	}	
+	int ncon=(n_rois*(n_rois-1))/2; // total number of correlations (edges)
+
+	outputVector.reserve(ncon);
+	outputVector.resize(ncon);
+
+	doRequest.getVectorDataOfByteArray(&outputVector, ncon);
+	outputVector.append(1);
+	return outputVector.toList();
+}
+
+
 
 void TBVNetworkInterface::writeError(QAbstractSocket::SocketError Error)
  {

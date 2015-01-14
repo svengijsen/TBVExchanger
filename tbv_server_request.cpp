@@ -1,4 +1,4 @@
-//Copyright (C) 2014  Michael Luehrs, Brain Innovation B.V.
+//Copyright (C) 2015  Michael Luehrs, Brain Innovation B.V.
 //
 //This file is part of BrainStim.
 //BrainStim is free software: you can redistribute it and/or modify
@@ -40,7 +40,7 @@ bool TBV_Server_Request::sendData(char *Querry,int value0, int value1, int value
 {
 	QByteArray requ;
 	QDataStream out(&requ, QIODevice::WriteOnly);
-	out.setVersion(QDataStream::Qt_4_0);
+	out.setVersion(QDataStream::Qt_4_8);
 
 	out << (qint64)0;
 	out << Querry;	
@@ -119,7 +119,7 @@ QString TBV_Server_Request::getReply()
 		}
 
 		rcvStream.setDevice(eTcpSocket);
-		rcvStream.setVersion(QDataStream::Qt_4_0);
+		rcvStream.setVersion(QDataStream::Qt_4_8);
 		rcvStream >> blockSize;
 
 		while (eTcpSocket->bytesAvailable() < blockSize) 
@@ -155,15 +155,6 @@ QString TBV_Server_Request::getReply()
 				rcvStream >> trash;
 			return QString("");
 		}
-		
-		
-
 	}
-
-}
-
-void TBV_Server_Request::getDataOfByteArray(char *data,int size)
-{
-	rcvStream.readRawData(data,size);
 }
 

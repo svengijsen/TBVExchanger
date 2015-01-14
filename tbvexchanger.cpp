@@ -1,4 +1,4 @@
-//Copyright (C) 2014  Michael Luehrs, Brain Innovation B.V. and Sven Gijsen
+//Copyright (C) 2015  Michael Luehrs, Brain Innovation B.V. and Sven Gijsen
 //
 //This file is part of BrainStim.
 //BrainStim is free software: you can redistribute it and/or modify
@@ -71,8 +71,8 @@ bool TBVExchanger::makeThisAvailableInScript(QString strObjectScriptName, QObjec
 
 bool TBVExchanger::initialize(bool autoConnect, bool autoReconnect)
 {
-	if(tbvNetwIntFace == NULL)
-	{
+	//if(tbvNetwIntFace == NULL)
+	//{
 		tbvNetwIntFace = new TBVNetworkInterface(autoConnect,autoReconnect);
 		//bool bResult = connect(tbvNetwIntFace,SIGNAL(executePreStep(int)),this,SLOT(executePreStep()));
 		connect(tbvNetwIntFace,&TBVNetworkInterface::executePreStep,this,&TBVExchanger::executePreStep);
@@ -81,7 +81,7 @@ bool TBVExchanger::initialize(bool autoConnect, bool autoReconnect)
 		connect(tbvNetwIntFace,&TBVNetworkInterface::disconnected,this,&TBVExchanger::disconnected);
 		connect(tbvNetwIntFace,&TBVNetworkInterface::connected,this,&TBVExchanger::connected);
 		connect(tbvNetwIntFace,&TBVNetworkInterface::connectionError,this,&TBVExchanger::connectionError);
-	}
+	//}
 	return true;
 }
 
