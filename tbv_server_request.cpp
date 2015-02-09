@@ -41,6 +41,7 @@ bool TBV_Server_Request::sendData(char *Querry,int value0, int value1, int value
 	QByteArray requ;
 	QDataStream out(&requ, QIODevice::WriteOnly);
 	out.setVersion(QDataStream::Qt_4_8);
+	out.setFloatingPointPrecision(QDataStream::SinglePrecision);
 
 	out << (qint64)0;
 	out << Querry;	
@@ -120,6 +121,7 @@ QString TBV_Server_Request::getReply()
 
 		rcvStream.setDevice(eTcpSocket);
 		rcvStream.setVersion(QDataStream::Qt_4_8);
+		rcvStream.setFloatingPointPrecision(QDataStream::SinglePrecision);
 		rcvStream >> blockSize;
 
 		while (eTcpSocket->bytesAvailable() < blockSize) 

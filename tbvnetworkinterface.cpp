@@ -23,7 +23,7 @@ TBVNetworkInterface::TBVNetworkInterface(bool autoConnect, bool autoReconnect) :
 	VMajor = 1;
 	VMinor = 6;
 	VSubminor = 0;
-
+	
 	tcpSocket = new QTcpSocket();
 	tcpSocket->setSocketOption(QAbstractSocket::LowDelayOption, 1);
 	tcpSocket->setSocketOption(QAbstractSocket::KeepAliveOption, 1);
