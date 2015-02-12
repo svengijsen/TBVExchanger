@@ -1,6 +1,6 @@
 <RCC>
   <qresource prefix="dataTBV">
-    <file>html/NetworkPlugin_guide.htm</file>
+    <file>html/NetworkPlugin_guide_v100.htm</file>
     <file>html/NetworkPlugin_guide_files/image001.png</file>
     <file>html/NetworkPlugin_guide_files/image002.png</file>
     <file>html/NetworkPlugin_guide_files/image003.png</file>

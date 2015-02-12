@@ -130,7 +130,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type=%27win32%27 name=%27Microsoft.Windows.Common-Controls%27 version=%276.0.0.0%27 publicKeyToken=%276595b64144ccf1df%27 language=%27*%27 processorArchitecture=%27*%27" %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Qt5Network$(DebugSuffix).lib;Qt5Core$(DebugSuffix).lib;Qt5Script$(DebugSuffix).lib;Qt5ScriptTools$(DebugSuffix).lib;Qt5Widgets$(DebugSuffix).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Qt5Gui$(DebugSuffix).lib;Qt5Network$(DebugSuffix).lib;Qt5Core$(DebugSuffix).lib;Qt5Script$(DebugSuffix).lib;Qt5ScriptTools$(DebugSuffix).lib;Qt5Widgets$(DebugSuffix).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(ProjectDir)..\Build_MSVC\$(ProjectName)\$(Platform)\$(Configuration)\$(ProjectName)_$(Platform)_$(Configuration).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -199,7 +199,7 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
     </ResourceCompile>
     <Link>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type=%27win32%27 name=%27Microsoft.Windows.Common-Controls%27 version=%276.0.0.0%27 publicKeyToken=%276595b64144ccf1df%27 language=%27*%27 processorArchitecture=%27*%27" %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Qt5Network$(DebugSuffix).lib;Qt5Core$(DebugSuffix).lib;Qt5Script$(DebugSuffix).lib;Qt5ScriptTools$(DebugSuffix).lib;Qt5Widgets$(DebugSuffix).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Qt5Gui$(DebugSuffix).lib;Qt5Network$(DebugSuffix).lib;Qt5Core$(DebugSuffix).lib;Qt5Script$(DebugSuffix).lib;Qt5ScriptTools$(DebugSuffix).lib;Qt5Widgets$(DebugSuffix).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(ProjectDir)..\Build_MSVC\$(ProjectName)\$(Platform)\$(Configuration)\$(ProjectName)_$(Platform)_$(Configuration).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -268,7 +268,7 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
     </ResourceCompile>
     <Link>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type=%27win32%27 name=%27Microsoft.Windows.Common-Controls%27 version=%276.0.0.0%27 publicKeyToken=%276595b64144ccf1df%27 language=%27*%27 processorArchitecture=%27*%27" %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Qt5Network$(DebugSuffix).lib;Qt5Core$(DebugSuffix).lib;Qt5Script$(DebugSuffix).lib;Qt5ScriptTools$(DebugSuffix).lib;Qt5Widgets$(DebugSuffix).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Qt5Gui$(DebugSuffix).lib;Qt5Network$(DebugSuffix).lib;Qt5Core$(DebugSuffix).lib;Qt5Script$(DebugSuffix).lib;Qt5ScriptTools$(DebugSuffix).lib;Qt5Widgets$(DebugSuffix).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(ProjectDir)..\Build_MSVC\$(ProjectName)\$(Platform)\$(Configuration)\$(ProjectName)_$(Platform)_$(Configuration).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -336,7 +336,7 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
     </ResourceCompile>
     <Link>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type=%27win32%27 name=%27Microsoft.Windows.Common-Controls%27 version=%276.0.0.0%27 publicKeyToken=%276595b64144ccf1df%27 language=%27*%27 processorArchitecture=%27*%27" %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Qt5Network$(DebugSuffix).lib;Qt5Core$(DebugSuffix).lib;Qt5Script$(DebugSuffix).lib;Qt5ScriptTools$(DebugSuffix).lib;Qt5Widgets$(DebugSuffix).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Qt5Gui$(DebugSuffix).lib;Qt5Network$(DebugSuffix).lib;Qt5Core$(DebugSuffix).lib;Qt5Script$(DebugSuffix).lib;Qt5ScriptTools$(DebugSuffix).lib;Qt5Widgets$(DebugSuffix).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(ProjectDir)..\Build_MSVC\$(ProjectName)\$(Platform)\$(Configuration)\$(ProjectName)_$(Platform)_$(Configuration).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -621,13 +621,6 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
     <ResourceCompile Include="tbvexchangerplugin.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="html\NetworkPlugin_guide.htm">
-      <DeploymentContent>true</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </None>
     <None Include="licenseheader.licenseheader" />
     <CustomBuild Include="rsc.qrc">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);.\html\NetworkPlugin_guide.htm;.\html\NetworkPlugin_guide_files\image001.png;.\html\NetworkPlugin_guide_files\image002.png;.\html\NetworkPlugin_guide_files\image003.png;.\html\NetworkPlugin_guide_files\image004.png;.\html\NetworkPlugin_guide_files\image005.png;.\html\NetworkPlugin_guide_files\image006.png;.\html\NetworkPlugin_guide_files\image007.png;.\html\NetworkPlugin_guide_files\image008.png;%(AdditionalInputs)</AdditionalInputs>

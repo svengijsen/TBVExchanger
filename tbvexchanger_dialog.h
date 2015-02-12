@@ -39,6 +39,8 @@ public:
 private:
 	Ui::TBVExchanger_DialogClass ui;
 	void cleanUp();
+
+	QTextDocument *doc;
 	
 private slots:
 	void on_cancelButton_clicked();

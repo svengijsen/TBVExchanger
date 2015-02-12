@@ -23,6 +23,28 @@ TBVExchanger_Dialog::TBVExchanger_Dialog(QWidget *parent)	: QDialog(parent)
 {
 	//Gets constructed only once during the load of the plugin
 	ui.setupUi(this);
+
+	QFile *fDoc = new QFile(":/dataTBV/html/NetworkPlugin_guide_v100.htm");
+	QString html;
+	if (fDoc->exists())
+	{
+		if (fDoc->open(QIODevice::ReadOnly))
+		{
+			html = fDoc->readAll();
+			fDoc->close();
+		}
+	}
+	doc = new QTextDocument();
+	doc->setHtml(html);
+	doc->addResource(QTextDocument::ImageResource, QUrl("NetworkPlugin_guide_files/image001.png"), QPixmap(":/dataTBV/html/NetworkPlugin_guide_files/image001.png"));
+	doc->addResource(QTextDocument::ImageResource, QUrl("NetworkPlugin_guide_files/image002.png"), QPixmap(":/dataTBV/html/NetworkPlugin_guide_files/image002.png"));
+	doc->addResource(QTextDocument::ImageResource, QUrl("NetworkPlugin_guide_files/image003.png"), QPixmap(":/dataTBV/html/NetworkPlugin_guide_files/image003.png"));
+	doc->addResource(QTextDocument::ImageResource, QUrl("NetworkPlugin_guide_files/image004.png"), QPixmap(":/dataTBV/html/NetworkPlugin_guide_files/image004.png"));
+	doc->addResource(QTextDocument::ImageResource, QUrl("NetworkPlugin_guide_files/image005.png"), QPixmap(":/dataTBV/html/NetworkPlugin_guide_files/image005.png"));
+	doc->addResource(QTextDocument::ImageResource, QUrl("NetworkPlugin_guide_files/image006.png"), QPixmap(":/dataTBV/html/NetworkPlugin_guide_files/image006.png"));
+	doc->addResource(QTextDocument::ImageResource, QUrl("NetworkPlugin_guide_files/image007.png"), QPixmap(":/dataTBV/html/NetworkPlugin_guide_files/image007.png"));
+	doc->addResource(QTextDocument::ImageResource, QUrl("NetworkPlugin_guide_files/image008.png"), QPixmap(":/dataTBV/html/NetworkPlugin_guide_files/image008.png"));
+	ui.textBrowser->setDocument(doc);
 }
 
 TBVExchanger_Dialog::~TBVExchanger_Dialog()
