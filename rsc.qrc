@@ -1,13 +1,13 @@
 <RCC>
-  <qresource prefix="dataTBV">
-    <file>html/NetworkPlugin_guide_v100.htm</file>
-    <file>html/NetworkPlugin_guide_files/image001.png</file>
-    <file>html/NetworkPlugin_guide_files/image002.png</file>
-    <file>html/NetworkPlugin_guide_files/image003.png</file>
-    <file>html/NetworkPlugin_guide_files/image004.png</file>
-    <file>html/NetworkPlugin_guide_files/image005.png</file>
-    <file>html/NetworkPlugin_guide_files/image006.png</file>
-    <file>html/NetworkPlugin_guide_files/image007.png</file>
-    <file>html/NetworkPlugin_guide_files/image008.png</file>
-  </qresource>
+	<qresource prefix="dataTBV">
+		<file>html/NetworkPlugin_guide_v100.htm</file>
+		<file>html/NetworkPlugin_guide_files/image001.png</file>
+		<file>html/NetworkPlugin_guide_files/image002.png</file>
+		<file>html/NetworkPlugin_guide_files/image003.png</file>
+		<file>html/NetworkPlugin_guide_files/image004.png</file>
+		<file>html/NetworkPlugin_guide_files/image005.png</file>
+		<file>html/NetworkPlugin_guide_files/image006.png</file>
+		<file>html/NetworkPlugin_guide_files/image007.png</file>
+		<file>html/NetworkPlugin_guide_files/image008.png</file>
+	</qresource>
 </RCC>

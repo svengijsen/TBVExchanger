@@ -71,7 +71,7 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="source">
       <url>
-       <string>qrc:/dataTBV/html/NetworkPlugin_guide.htm</string>
+       <string></string>
       </url>
      </property>
     </widget>
