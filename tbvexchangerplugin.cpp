@@ -28,7 +28,7 @@ TBVExchangerPlugin::TBVExchangerPlugin(QObject *parent)
 {
 	TBVExchangerObject = new TBVExchanger(parent);
 	TBVExchangerDiagObject = new TBVExchanger_Dialog();	
-	strPluginInformation = QString(PLUGIN_INTERNAL_NAME) + " Plugin" + "(v" + PLUGIN_FILE_VERSION_STRING + ")" + " by " + PLUGIN_AUTHOR_NAME;
+	strPluginInformation = QString(PLUGIN_INTERNAL_NAME) + " Plugin" + "(v" + PLUGIN_FILE_VERSION_STRING + ")";// +" by " + PLUGIN_AUTHOR_NAME;
 	strPluginInternalName = PLUGIN_INTERNAL_NAME;
 }
 
