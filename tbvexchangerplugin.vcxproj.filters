@@ -148,6 +148,9 @@
     <ClCompile Include="..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\qrc_rsc.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\qrc_tbvexchanger.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -188,6 +191,9 @@
     <CustomBuild Include="rsc.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="tbvexchanger.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="tbvexchangerplugin.rc" />
@@ -195,6 +201,18 @@
   <ItemGroup>
     <None Include="licenseheader.licenseheader" />
     <None Include="tbvexchanger.json" />
+    <None Include="resources\tbvexchangerplugin_Win32_Debug.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resources\tbvexchangerplugin_Win32_Release.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resources\tbvexchangerplugin_x64_Debug.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resources\tbvexchangerplugin_x64_Release.ini">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="html\NetworkPlugin_guide_files\image001.png">

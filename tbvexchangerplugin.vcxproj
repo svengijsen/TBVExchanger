@@ -149,6 +149,9 @@
 
 xcopy "$(TargetPath)" "$(BRAINSTIM_HOME)\Install\plugins\$(Platform)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
+xcopy "$(ProjectDir)resources\$(ProjectName)_$(Platform)_$(Configuration).ini" "$(BRAINSTIM_HOME)\Install\Plugins\$(Platform)\" /i /d /y
+if errorlevel 1 goto BuildEventFailed
+
 REM xcopy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)$(OutDir)" /i /d /y
 REM if errorlevel 1 goto BuildEventFailed
 REM echo GAC of: "$(SolutionDir)$(OutDir)$(TargetFileName)"
@@ -219,6 +222,9 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
 
 xcopy "$(TargetPath)" "$(BRAINSTIM_HOME)\Install\plugins\$(Platform)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
+xcopy "$(ProjectDir)resources\$(ProjectName)_$(Platform)_$(Configuration).ini" "$(BRAINSTIM_HOME)\Install\Plugins\$(Platform)\" /i /d /y
+if errorlevel 1 goto BuildEventFailed
+
 REM xcopy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)$(OutDir)" /i /d /y
 REM if errorlevel 1 goto BuildEventFailed
 REM echo GAC of: "$(SolutionDir)$(OutDir)$(TargetFileName)"
@@ -286,6 +292,9 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
 
 xcopy "$(TargetPath)" "$(BRAINSTIM_HOME)\Install\plugins\$(Platform)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
+xcopy "$(ProjectDir)resources\$(ProjectName)_$(Platform)_$(Configuration).ini" "$(BRAINSTIM_HOME)\Install\Plugins\$(Platform)\" /i /d /y
+if errorlevel 1 goto BuildEventFailed
+
 REM xcopy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)$(OutDir)" /i /d /y
 REM if errorlevel 1 goto BuildEventFailed
 REM echo GAC of: "$(SolutionDir)$(OutDir)$(TargetFileName)"
@@ -355,6 +364,9 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
 
 xcopy "$(TargetPath)" "$(BRAINSTIM_HOME)\Install\plugins\$(Platform)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
+xcopy "$(ProjectDir)resources\$(ProjectName)_$(Platform)_$(Configuration).ini" "$(BRAINSTIM_HOME)\Install\Plugins\$(Platform)\" /i /d /y
+if errorlevel 1 goto BuildEventFailed
+
 REM xcopy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)$(OutDir)" /i /d /y
 REM if errorlevel 1 goto BuildEventFailed
 REM echo GAC of: "$(SolutionDir)$(OutDir)$(TargetFileName)"
@@ -373,6 +385,16 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\qrc_rsc.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\qrc_tbvexchanger.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -640,7 +662,49 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\qrc_%(Filename).cpp</Command>
     </CustomBuild>
+    <None Include="resources\tbvexchangerplugin_Win32_Debug.ini">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="resources\tbvexchangerplugin_Win32_Release.ini">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="resources\tbvexchangerplugin_x64_Debug.ini">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="resources\tbvexchangerplugin_x64_Release.ini">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
     <None Include="tbvexchanger.json" />
+    <CustomBuild Include="tbvexchanger.qrc">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);.\resources\tbvexchangerplugin_Win32_Debug.ini;.\resources\tbvexchangerplugin_Win32_Release.ini;.\resources\tbvexchangerplugin_x64_Debug.ini;.\resources\tbvexchangerplugin_x64_Release.ini;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\qrc_%(Filename).cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(FullPath);.\resources\tbvexchangerplugin_Win32_Debug.ini;.\resources\tbvexchangerplugin_Win32_Release.ini;.\resources\tbvexchangerplugin_x64_Debug.ini;.\resources\tbvexchangerplugin_x64_Release.ini;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\qrc_%(Filename).cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FullPath);.\resources\tbvexchangerplugin_Win32_Debug.ini;.\resources\tbvexchangerplugin_Win32_Release.ini;.\resources\tbvexchangerplugin_x64_Debug.ini;.\resources\tbvexchangerplugin_x64_Release.ini;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\qrc_%(Filename).cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(FullPath);.\resources\tbvexchangerplugin_Win32_Debug.ini;.\resources\tbvexchangerplugin_Win32_Release.ini;.\resources\tbvexchangerplugin_x64_Debug.ini;.\resources\tbvexchangerplugin_x64_Release.ini;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\..\Build_MSVC\Qt\$(PlatformName)\$(ConfigurationName)\GeneratedFiles\qrc_%(Filename).cpp</Command>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Image Include="html\NetworkPlugin_guide_files\image001.png">

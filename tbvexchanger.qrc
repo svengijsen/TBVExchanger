@@ -1,0 +1,8 @@
+<RCC>
+	<qresource prefix="dataTBVExchanger">
+		<file>resources/tbvexchangerplugin_Win32_Debug.ini</file>
+		<file>resources/tbvexchangerplugin_Win32_Release.ini</file>
+		<file>resources/tbvexchangerplugin_x64_Debug.ini</file>
+		<file>resources/tbvexchangerplugin_x64_Release.ini</file>
+	</qresource>
+</RCC>
