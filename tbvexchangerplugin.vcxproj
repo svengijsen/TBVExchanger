@@ -151,6 +151,8 @@ xcopy "$(TargetPath)" "$(BRAINSTIM_HOME)\Install\plugins\$(Platform)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
 xcopy "$(ProjectDir)resources\$(ProjectName)_$(Platform)_$(Configuration).ini" "$(BRAINSTIM_HOME)\Install\Plugins\$(Platform)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
+xcopy "$(ProjectDir)scripts\QScriptExample_TBVExchangerPlugin.qs" "$(BRAINSTIM_HOME)\Install\Examples\Plugins\$(ProjectName)\" /i /d /y
+if errorlevel 1 goto BuildEventFailed
 
 REM xcopy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)$(OutDir)" /i /d /y
 REM if errorlevel 1 goto BuildEventFailed
@@ -224,6 +226,8 @@ xcopy "$(TargetPath)" "$(BRAINSTIM_HOME)\Install\plugins\$(Platform)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
 xcopy "$(ProjectDir)resources\$(ProjectName)_$(Platform)_$(Configuration).ini" "$(BRAINSTIM_HOME)\Install\Plugins\$(Platform)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
+xcopy "$(ProjectDir)scripts\QScriptExample_TBVExchangerPlugin.qs" "$(BRAINSTIM_HOME)\Install\Examples\Plugins\$(ProjectName)\" /i /d /y
+if errorlevel 1 goto BuildEventFailed
 
 REM xcopy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)$(OutDir)" /i /d /y
 REM if errorlevel 1 goto BuildEventFailed
@@ -293,6 +297,8 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
 xcopy "$(TargetPath)" "$(BRAINSTIM_HOME)\Install\plugins\$(Platform)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
 xcopy "$(ProjectDir)resources\$(ProjectName)_$(Platform)_$(Configuration).ini" "$(BRAINSTIM_HOME)\Install\Plugins\$(Platform)\" /i /d /y
+if errorlevel 1 goto BuildEventFailed
+xcopy "$(ProjectDir)scripts\QScriptExample_TBVExchangerPlugin.qs" "$(BRAINSTIM_HOME)\Install\Examples\Plugins\$(ProjectName)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
 
 REM xcopy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)$(OutDir)" /i /d /y
@@ -365,6 +371,8 @@ echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK
 xcopy "$(TargetPath)" "$(BRAINSTIM_HOME)\Install\plugins\$(Platform)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
 xcopy "$(ProjectDir)resources\$(ProjectName)_$(Platform)_$(Configuration).ini" "$(BRAINSTIM_HOME)\Install\Plugins\$(Platform)\" /i /d /y
+if errorlevel 1 goto BuildEventFailed
+xcopy "$(ProjectDir)scripts\QScriptExample_TBVExchangerPlugin.qs" "$(BRAINSTIM_HOME)\Install\Examples\Plugins\$(ProjectName)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
 
 REM xcopy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)$(OutDir)" /i /d /y
