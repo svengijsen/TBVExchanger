@@ -151,7 +151,10 @@ xcopy "$(TargetPath)" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d 
 if errorlevel 1 goto BuildEventFailed
 xcopy "$(ProjectDir)resources\$(ProjectName)_$(Platform)_$(Configuration).ini" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
-xcopy "$(ProjectDir)scripts\QScriptExample_TBVExchangerPlugin.qs" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
+
+xcopy "$(ProjectDir)include\QtScript" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
+if errorlevel 1 goto BuildEventFailed
+xcopy "$(ProjectDir)scripts" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
 
 SET PATH=%PATH%;$(QTDIR)\bin
@@ -225,7 +228,10 @@ xcopy "$(TargetPath)" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d 
 if errorlevel 1 goto BuildEventFailed
 xcopy "$(ProjectDir)resources\$(ProjectName)_$(Platform)_$(Configuration).ini" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
-xcopy "$(ProjectDir)scripts\QScriptExample_TBVExchangerPlugin.qs" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
+
+xcopy "$(ProjectDir)include\QtScript" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
+if errorlevel 1 goto BuildEventFailed
+xcopy "$(ProjectDir)scripts" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
 
 SET PATH=%PATH%;$(QTDIR)\bin
@@ -296,7 +302,10 @@ xcopy "$(TargetPath)" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d 
 if errorlevel 1 goto BuildEventFailed
 xcopy "$(ProjectDir)resources\$(ProjectName)_$(Platform)_$(Configuration).ini" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
-xcopy "$(ProjectDir)scripts\QScriptExample_TBVExchangerPlugin.qs" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
+
+xcopy "$(ProjectDir)include\QtScript" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
+if errorlevel 1 goto BuildEventFailed
+xcopy "$(ProjectDir)scripts" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
 
 SET PATH=%PATH%;$(QTDIR)\bin
@@ -369,7 +378,10 @@ xcopy "$(TargetPath)" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d 
 if errorlevel 1 goto BuildEventFailed
 xcopy "$(ProjectDir)resources\$(ProjectName)_$(Platform)_$(Configuration).ini" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
-xcopy "$(ProjectDir)scripts\QScriptExample_TBVExchangerPlugin.qs" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
+
+xcopy "$(ProjectDir)include\QtScript" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
+if errorlevel 1 goto BuildEventFailed
+xcopy "$(ProjectDir)scripts" "$(ProjectDir)\build\$(Platform)\$(Configuration)\" /i /d /y
 if errorlevel 1 goto BuildEventFailed
 
 SET PATH=%PATH%;$(QTDIR)\bin
