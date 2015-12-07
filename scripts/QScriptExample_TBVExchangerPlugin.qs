@@ -10,7 +10,7 @@ function KeyCaptureDetectFunction(keyCode)
 	{
 		KeyBoardCaptureObj.StopCaptureThread();
 		CleanupScript();//escape key
-	}	
+	}
 }
 
 function CleanupScript() //Cleanup the script

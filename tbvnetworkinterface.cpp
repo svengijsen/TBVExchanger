@@ -1007,3 +1007,9 @@ void TBVNetworkInterface::writeError(QAbstractSocket::SocketError Error)
      }
 
  }
+
+bool TBVNetworkInterface::setAutoReconnect(bool setting)
+{
+	reConnect = setting;
+	return true;
+}

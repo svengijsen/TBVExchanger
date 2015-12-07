@@ -286,6 +286,17 @@ public slots:
 	  Deactivates the automatic connect functionality.
 	*/
 	bool deactivateAutoConnection();
+	//!  activateAutoConnection slot. 
+	/*!
+	Activates the automatic Reconnect functionality to connect to a TBV server if available and accessible.
+	*/
+	bool activateAutoReconnect();
+	//!  deactivateAutoReconnect slot. 
+	/*!
+	Deactivates the automatic Reconnect functionality.
+	*/
+	bool deactivateAutoReconnect();
+
 
 private:
 	bool initialize(bool autoConnect, bool autoReconnect);

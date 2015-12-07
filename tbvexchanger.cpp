@@ -94,3 +94,13 @@ bool TBVExchanger::deactivateAutoConnection()
 {
 	return tbvNetwIntFace->setAutoConnection(false);
 }
+
+bool TBVExchanger::activateAutoReconnect()
+{
+	return tbvNetwIntFace->setAutoReconnect(true);
+}
+
+bool TBVExchanger::deactivateAutoReconnect()
+{
+	return tbvNetwIntFace->setAutoReconnect(false);
+}
