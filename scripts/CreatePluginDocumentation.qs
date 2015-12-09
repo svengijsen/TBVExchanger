@@ -1,4 +1,4 @@
-var sPluginName = "<Rename>";
+var sPluginName = "TBVExchanger";
 var tmpString;
 var InstallProcess = new QProcess();
 var tmpByteArray = new QByteArray();

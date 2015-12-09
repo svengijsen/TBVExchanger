@@ -7,8 +7,8 @@ BrainStim.addScriptIncludePath(sBrainStimDocPath + "/scripts");
 Include(sBrainStimDocPath + "/scripts/DocumentVersioningLib.qs");
 	
 /////////////////////////CONFIGURATION(BEGIN)////////////////////////////////////////////
-_sPluginName = "<Rename>";
-_sPluginDocRootFolderName = "<Rename>";
+_sPluginName = "TBVExchanger";
+_sPluginDocRootFolderName = "TBVExchanger";
 _sPluginVersion = "1.0.0.1";
 _sDocVersion = "1.0.0.1";
 var _sMinimalBrainStimVersion = "1.1.0.0";
@@ -16,7 +16,7 @@ var _sGitHubAccount = "svengijsen";
 
 docVer_sSourcePath 				= BrainStim.getActiveDocumentFileLocation() + "/../" + _sPluginDocRootFolderName + "/";
 docVer_sDestPath 				= docVer_sSourcePath;
-docVer_sMainAuthor				= "Sven Gijsen";
+docVer_sMainAuthor				= "Michael Lührs, Sven Gijsen";
 docVer_sCurrentAuthoringMonth 	= "Juli 2015";
 docVer_sComment 				= "Please do not edit the below line(s) manually, see DocumentVersioning.qs (" + CreateTimeStamp(sTimeObject) + ")";
 docVer_sScriptComment  			= "//" + docVer_sComment + ", BrainStim version " + BrainStim_Settings_CurrentBrainStimReleaseString + ", Plugin version " + _sPluginVersion;
