@@ -9,14 +9,14 @@ Include(sBrainStimDocPath + "/scripts/DocumentVersioningLib.qs");
 /////////////////////////CONFIGURATION(BEGIN)////////////////////////////////////////////
 _sPluginName = "TBVExchanger";
 _sPluginDocRootFolderName = "TBVExchanger";
-_sPluginVersion = "1.0.0.1";
+_sPluginVersion = "1.1.0.1";
 _sDocVersion = "1.0.0.1";
 var _sMinimalBrainStimVersion = "1.1.0.0";
 var _sGitHubAccount = "svengijsen";
 
 docVer_sSourcePath 				= BrainStim.getActiveDocumentFileLocation() + "/../" + _sPluginDocRootFolderName + "/";
 docVer_sDestPath 				= docVer_sSourcePath;
-docVer_sMainAuthor				= "Michael Lührs, Sven Gijsen";
+docVer_sMainAuthor				= "Michael Luhrs, Sven Gijsen";
 docVer_sCurrentAuthoringMonth 	= "Juli 2015";
 docVer_sComment 				= "Please do not edit the below line(s) manually, see DocumentVersioning.qs (" + CreateTimeStamp(sTimeObject) + ")";
 docVer_sScriptComment  			= "//" + docVer_sComment + ", BrainStim version " + BrainStim_Settings_CurrentBrainStimReleaseString + ", Plugin version " + _sPluginVersion;
@@ -25,6 +25,7 @@ docVer_sHTMLComment  			= "<!-- " + docVer_sComment + ",BrainStim version " + Br
 //Default Document Editing
 defaultDocumentEditing("../index.html", "index.html", 0);
 defaultDocumentEditing("index.html", "index.html", 1);
+defaultDocumentEditing("networkaccess.html", "networkaccess.html", 1);
 
 //Special (non-default Document Editing)
 sSourceList.push(docVer_sSourcePath + "../index.html");
@@ -95,7 +96,6 @@ sDestList.push(sSourceList[sSourceList.length-1]);
 	changeSet[sSourceList.length-1] = CreateArray(3,0);
 	changeSet[sSourceList.length-1][0][0] = "<!--doc-version-default-header-FB-begin-->";
 	changeSet[sSourceList.length-1][1][0] = docVer_sHTMLComment + "\n" + 
-//"<title>" + _sPluginName + " v" + _sPluginVersion + "</title>";
 "	<div class=\"doc-header\">\n" +
 "		<div class=\"alert alert-info\" role=\"alert\">\n" +
 "			<h1>" + _sPluginName + " Plugin v" + _sPluginVersion + "</h1>\n" +
@@ -107,6 +107,23 @@ sDestList.push(sSourceList[sSourceList.length-1]);
 "		</div>\n" +
 "	</div>";
 	changeSet[sSourceList.length-1][2][0] = "<!--doc-version-default-header-FB-end-->";	
+	
+sSourceList.push(docVer_sSourcePath + "networkaccess.html");
+sDestList.push(sSourceList[sSourceList.length-1]);
+	changeSet[sSourceList.length-1] = CreateArray(3,0);
+	changeSet[sSourceList.length-1][0][0] = "<!--doc-version-default-header-FB-NA-begin-->";
+	changeSet[sSourceList.length-1][1][0] = docVer_sHTMLComment + "\n" + 
+"	<div class=\"doc-header\">\n" +
+"		<div class=\"alert alert-info\" role=\"alert\">\n" +
+"			<h1>" + "TBV Network Access" + "</h1>\n" +
+"			<div class=\"row\">\n" +
+"				<div class=\"col-md-4\"><p><strong>Document version: </strong>" + "1.7" + "</p></div>\n" +
+"				<div class=\"col-md-4\"><p><strong>Author(s): </strong>" + "Michael Luhrs" + "</p></div>\n" +
+"				<div class=\"col-md-4\"><p><strong>Date: </strong>" + docVer_sCurrentAuthoringMonth + "</p></div>\n" +
+"			</div>\n" +
+"		</div>\n" +
+"	</div>";
+	changeSet[sSourceList.length-1][2][0] = "<!--doc-version-default-header-FB-NA-end-->";
 
 sSourceList.push(docVer_sSourcePath + "../" + _sPluginName + ".qhcp");
 sDestList.push(sSourceList[sSourceList.length-1]);

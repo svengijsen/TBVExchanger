@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+<!--doc-version-default-links-begin-->
+<!-- Please do not edit the below line(s) manually, see DocumentVersioning.qs (151116144148),BrainStim version 1.1.0.1, Plugin version 1.1.0.1-->
+<!-- Bootstrap core CSS -->
+<link href="../bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+<!-- Bootstrap theme -->
+<link href="../bootstrap/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet"/>
+<!-- Code-Prettify -->
+<link href="../google-code-prettify/prettify.css" type="text/css" rel="stylesheet"/>
+<script src="../google-code-prettify/prettify.js" type="text/javascript"></script>
+<!-- Custom styles for this template -->
+<link href="../css/custom_theme.css" type="text/css" rel="stylesheet"/>
+<!--doc-version-default-links-end-->
+
+<title>Network Access</title>
+</head>
+<body>
+	<div class="container">
+<!--doc-version-default-header-FB-NA-begin-->
+<!-- Please do not edit the below line(s) manually, see DocumentVersioning.qs (151116144148),BrainStim version 1.1.0.1, Plugin version 1.1.0.1-->
+	<div class="doc-header">
+		<div class="alert alert-info" role="alert">
+			<h1>TBV Network Access</h1>
+			<div class="row">
+				<div class="col-md-4"><p><strong>Document version: </strong>1.7</p></div>
+				<div class="col-md-4"><p><strong>Author(s): </strong>Michael Luhrs</p></div>
+				<div class="col-md-4"><p><strong>Date: </strong>Juli 2015</p></div>
+			</div>
+		</div>
+	</div>
+<!--doc-version-default-header-FB-NA-end-->
+		<h2>Introduction</h2>
+		<p>The network interface opens custom access to data that is internally 
+		used by Turbo-BrainVoyager (TBV) during and after real-time processing 
+		including information of ROI, design matrix, (pre-processed) raw data 
+		and statistical information inclusive the content of the design matrix, 
+		beta maps and contrast t-maps. This plugin allows to perform additional 
+		operations and calculations outside the TBV. <br />
+		Well defined access queries 
+		are used to get access to the data via a TCP connection. Therefore a 
+		server implementation allows to get access to the whole data that is 
+		also provided by the plugin interface during and after the real-time 
+		processing.<br />
+		A server client approach is used to get access to the data 
+		at any time. Therefore the server provides all features to get access to 
+		the data in real-time while running the analysis. <br />
+		Send a data specific 
+		query to get the requested information from the server. </p>
+		<h2>Connect to the server</h2>
+		<p>A connection to the server could be established through a TCP socket 
+		implementation.&nbsp;At first the specific server port has to be defined in 
+		the plugin. After that the IP of the server will be displayed in the 
+		plugin window.&nbsp;The ports range from 1 to 65535 but the first 1024 
+		well-known ports or system ports are used by system processes and need 
+		superuser privileges on Unix-like systems to bind a network socket to 
+		it. Be sure to use a TCP socket to connect the server.<br />
+		The plugin uses 
+		two different sockets. One to receive and answer the queries from the 
+		client and one to send execution information from the TBV. To specify 
+		the socket to use send a ("Request Socket") char array for the query 
+		socket or a ("Execute Socket") char array for the execution information 
+		socket (prepend the size of the array as a 4 byte unsigned integer for 
+		all char arrays and end the array with a NUL [\0]). Include the specific 
+		char array into a byte array and insert as the first element the size of 
+		the byte array as an 8 byte signed 64bit integer. An example byte based 
+		representation is shown below: <br />
+		</p>
+		
+<p><br />
+<img src="images/image001.png" alt="" class="img-responsive centered" id="Diagram 8">
+<img src="images/image002.png" alt="" class="img-responsive centered" id="Diagram 2"><br />
+		</p>
+
+		<p>If the request is wrong the connection will be closed. Insert a short 
+		delay from around 0.5 seconds between the different socket connection 
+		requests to be ensure that the server is listening for a new connection.<br />
+		After the connection is completely established the data can be directly 
+		accessed from TBV. Only ask for data that is already available in TBV, 
+		otherwise an error message will be returned!<br />
+		All data that is send and 
+		received is in&nbsp;<strong>big-endian</strong>&nbsp;(<em>network byte</em>)<strong>&nbsp;byte order</strong>. </p>
+		<h2>Access the data</h2>
+		<p>A query with the included request of the specific data must be send 
+		to the server to access the data from the TBV. <br />
+		A query has to be constructed as a byte 
+		array where the first element is a definition of the size of the byte 
+		array as an 8 byte signed 64bit integer.<br />
+		The second entry defines the 
+		type of query as a char array. After that follows the specific query 
+		definitions, for example the time point from which to get the data. Only 
+		ask for data that are already available in the TBV otherwise an error 
+		string ("Wrong request!") will be returned. </p>
+		<p><br />
+		<img src="images/image003.png" alt="" class="img-responsive centered" id="Diagram 3"><br />
+		</p>
+		<p>If the query consists of more than one parameter, attach the other 
+		parameters to the query and store it in the byte array.<br />
+		You will receive a byte array with the respective content as answer. 
+		(The first 8 byte of the byte array represents the size of the received 
+		byte array as unsigned 64bit integer.) As an example how a definition of 
+		the byte array should look like, see the <strong><em>
+		<a href="Doxygen/class_t_b_v_exchanger.html#a4c2dabcf9dfc63678f4cdcd1b777b771">
+		tGetCurrentTimePoint</a></em></strong> function (send and receive). </p>
+<p><br />
+<img src="images/image004.png" alt="" class="img-responsive centered" id="Diagram 4">
+<img src="images/image005.png" alt="" class="img-responsive centered" id="Diagram 5"><br />
+		</p>
+		<h2>Prestep, Poststep, Postrun calls</h2>
+		<p>Whenever&nbsp;new data is available a specific information will be send to 
+		the client. The calls are distinguished into a Prestep, Poststep and a 
+		Postrun call. The Prestep call will be send whenever new raw data is 
+		available. The Poststep call will be send whenever new pre-processed 
+		data is available. The Postrun call will be send when the experiment is 
+		completely finished or interrupted by the user. This invocation consists 
+		of an at least 14 byte large char array followed by an integer 
+		representing the current point in time of the current TBV processing. 
+		Both data will be send as a byte array&nbsp;(The first 8 byte of the byte 
+		array represents the size of the received byte array as signed 64bit 
+		integer) </p>
+		<h2>Wrong requests</h2>
+		<p>Whenever the user sends a wrong query (for example asked for a time 
+		point that has not been processed yet) a wrong request information will 
+		be send to the client. The first part of the information is the 
+		definition that a wrong request was asked. After that follows the 
+		description which specific part of the query is wrong. The client 
+		receives a 14 byte char array (‚??Wrong request!‚?ù) followed by an char 
+		array including the respective error. Keep in mind that this data will 
+		also be send in a byte array.&nbsp;(The first 8 byte of the byte array 
+		represents the size of the received byte array as unsigned 64bit integer 
+		and before each char array the specific length as a 4byte unsigned 
+		integer.)</p>
+		<p><br />
+		<img src="images/image006.png" class="img-responsive centered" alt="" id="Diagram 6"><br />
+		</p>
+		<h2>Available Script Functions</h2>
+		<p>A complete list of all available functions can be found in the  <a href="../TBVExchanger/Doxygen/index.html">doxygen's reference documentation</a>. 
+		These are sub-grouped to:</p>
+		<ul>
+			<li>
+			<a href="Doxygen/class_t_b_v_exchanger.html#BasicProjectFunctions">
+			Basic Project Functions</a></li>
+			<li><a href="Doxygen/class_t_b_v_exchanger.html#ProtocolDMGLMFunctions">
+			Protocol, DM, GLM Functions</a></li>
+			<li><a href="Doxygen/class_t_b_v_exchanger.html#ROIFunctions">
+			ROI Functions</a></li>
+			<li><a href="Doxygen/class_t_b_v_exchanger.html#VolumeDataAccessFunctions">
+			Volume Data Access Functions</a></li>
+			<li><a href="Doxygen/class_t_b_v_exchanger.html#SVMAccessFunctions">
+			SVM Access Functions</a><br />
+			Since version 3.2 TBV provides access to classification output values 
+		calculated during&nbsp;<a href="http://download.brainvoyager.com/tbv/TBVUsersGuide/MVPA/RealTimeSVMClassification.html" target="_blank">real-time 
+		SVM classification</a>. The tGetCurrentClassifierOutput() function 
+		provides both a single integral value informing which class is predicted 
+		at the current time point as well as a detailed vector of float values 
+		that can be used for custom classifier-based neurofeedback. The latter 
+		information is returned in a vector since the number of values depend on 
+		the number of classes used for classification (see below). It is, thus, 
+		important to call the tGetNumberOfClasses() function to ensure that the 
+		right number of values is used to prepare an array with sufficient size 
+		for retrieving the output values.</li>
+			<li><a href="Doxygen/class_t_b_v_exchanger.html#FunctionalConnectivityFunctions">
+			Functional Connectivity Functions</a><br />
+			The plugin provides basic functional connectivity measure like the 
+		Pearson correlation or partial correlation. These measures are based on 
+		the selected ROI‚??s and calculated for the current and previous points in 
+		time and a specified window for the correlation. The correlation results 
+		stored in the&nbsp;double&nbsp;PCorrelation[ncon]&nbsp;array can be accessed as shown 
+		in the example below: <br />
+			<br />
+			<table class="codeframe">
+				<tr>
+					<td>
+					<pre class="prettyprint"><code class="language-cpp">int n_rois = tGetNrOfROIs();
+int ncon = 0;
+for(int i=1; i&lt;n_rois; i++)
+{
+    for(int j=i+1; j&lt;=n_rois; j++)
+    {
+        printf(‚??Correlation: ROI %i and ROI %i: %f‚??,i,j,PCorrelation[ncon]);
+        ncon++;
+    }
+}</code></pre>
+					</td>
+				</tr>
+			</table>
+			The total number of correlations (ncon) can be 
+		calculated using the equation below. &nbsp; <br /><br />
+			<table class="codeframe">
+				<tr>
+					<td>
+					<pre class="prettyprint"><code class="language-cpp">int&nbsp;ncon=(n_rois*(n_rois-1))/2; // total number of correlations (edges) </code></pre>
+					</td>
+				</tr>
+			</table>
+		</li>
+		<li><a href="Doxygen/class_t_b_v_exchanger.html#ConnectionFunctions">
+		Connection Functions</a></li>
+		</ul>
+		<p>&nbsp;</p>
+	</div>
+<!--doc-version-default-footer-begin-->
+<!-- Please do not edit the below line(s) manually, see DocumentVersioning.qs (151116144148),BrainStim version 1.1.0.1, Plugin version 1.1.0.1-->
+	<script type="text/javascript">document.body.onload = function() {prettyPrint()};</script>
+<!--doc-version-default-footer-end-->
+</body>
+</html>
