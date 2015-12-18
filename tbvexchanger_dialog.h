@@ -16,11 +16,8 @@
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-
-//This file implements the UI functionality
-
-#ifndef TBVExchanger_DIALOG_H
-#define TBVExchanger_DIALOG_H
+#ifndef TBVEXCHANGER_DIALOG_H
+#define TBVEXCHANGER_DIALOG_H
 
 #include <QDialog>
 #include "ui_TBVExchanger_dialog.h"
@@ -48,4 +45,4 @@ private slots:
 	void on_okButton_clicked();
 };
 
-#endif // TBVExchanger_DIALOG_H
+#endif // TBVEXCHANGER_DIALOG_H

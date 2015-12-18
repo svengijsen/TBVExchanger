@@ -17,8 +17,8 @@
 //
 
 
-#ifndef TBVExchangerPLUGIN_H
-#define TBVExchangerPLUGIN_H
+#ifndef TBVEXCHANGERPLUGIN_H
+#define TBVEXCHANGERPLUGIN_H
 
 #include <QObject>
 #include <QtWidgets>
@@ -53,13 +53,13 @@ private:
 	TBVExchanger_Dialog *TBVExchangerDiagObject;
 
 public slots:
+	bool HasGUI() { return false; };
     bool ShowGUI();
-	bool IsCompatible() {return PluginInterface::IsCompatible();};// ExtensionInterface PluginInterface::IsCompatible();};
-	//QStringList GetAdditionalFileExtensions() {return (QStringList() << "TBVExchanger files (*.TBVExchanger);;");};
+	bool IsCompatible() {return PluginInterface::IsCompatible();};
 	QObject *GetScriptMetaObject(int nIndex) {if(nIndex == 0) return (QObject *)TBVExchangerObject->metaObject(); else return NULL;};
 
 signals:
 	void DoSignal();
 };
 
-#endif//TBVExchangerPLUGIN_H
+#endif//TBVEXCHANGERPLUGIN_H
